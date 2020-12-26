@@ -61,11 +61,12 @@
     <div v-if="investment_target_currency_value != 0">
       Yatırdığınız Para: <strong>{{ this.money }}</strong> {{ currency }}
       <br />
-      Yatırdığınız Paranın {{ investment_date }} Tarihindeki Karşılığı: <strong>
-      {{ investment_target_currency_value }} </strong> {{ second_currency }}
+      Yatırdığınız Paranın {{ investment_date }} Tarihindeki Karşılığı:
+      <strong> {{ investment_target_currency_value }} </strong>
+      {{ second_currency }}
       <br />
-      Yatırdığınız Paranın {{ date }} Tarihindeki Karşılığı: <strong>
-      {{ now_target_currency_value }} </strong> {{ second_currency }}
+      Yatırdığınız Paranın {{ date }} Tarihindeki Karşılığı:
+      <strong> {{ now_target_currency_value }} </strong> {{ second_currency }}
     </div>
   </div>
 </template>
@@ -122,7 +123,6 @@ export default {
       }
 
       axios.get(investment_url).then((response) => {
-        console.log("Bu yatırım tarihi sorgusu:", response.data);
         this.investment_result = response.data;
         this.calcNow();
       });
@@ -136,15 +136,19 @@ export default {
         this.currency;
 
       axios.get(url).then((response) => {
-        console.log("Bu şimdinin sorgusu:", response.data);
         this.now_result = response.data;
         this.mainCalc();
       });
     },
 
     mainCalc() {
-      this.investment_target_currency_value =
-        this.investment_result.rates[this.second_currency] * this.money;
+      if (isNaN(this.investment_result.rates[this.second_currency])) {
+        this.investment_target_currency_value =
+          this.investment_result.rates["TRL"] * this.money;
+      } else {
+        this.investment_target_currency_value =
+          this.investment_result.rates[this.second_currency] * this.money;
+      }
       this.now_target_currency_value =
         this.now_result.rates[this.second_currency] * this.money;
     },
