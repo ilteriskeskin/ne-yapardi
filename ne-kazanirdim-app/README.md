@@ -1,4 +1,4 @@
-# ne-kazanirdim-app
+# ne-yapardi-app
 
 ## Project setup
 ```
