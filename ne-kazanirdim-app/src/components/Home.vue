@@ -10,6 +10,12 @@
           <h1>Ne Kadar Kazanırım</h1>
         </div>
 
+        <div class="calculate-result-block">
+            <span class="calculate-block-info">
+              Yatırım yapmayı düşündüğünüz tarihi, bozdurmayı planladığınız tarihi , yatırım yapmak istediğiniz miktar ve birimi giriniz. Son olarak dönüşüm yapmak istediğiniz birimi giriniz ve yatırımınızın artış/azalış miktarını görün :)
+            </span>
+          </div>
+
         <div class="form-group row m-0">
           <label
             for="example-date-input"
@@ -371,6 +377,13 @@ fixShadow          : 0px 0px 1px 1px rgba(0,0,0,0.10);
   margin-bottom: 15px;
   border-radius: 4px;
   background-color: #38c17220;
+}
+
+.calculate-block-info {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: justify;
 }
 
 .calculate-result-block-title {
