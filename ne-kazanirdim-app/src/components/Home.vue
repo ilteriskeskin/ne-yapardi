@@ -149,11 +149,21 @@ export default {
 
   methods: {
     calc() {
-      let investment_url = 
-      "https://api.exchangeratesapi.io/" +
-      this.investment_date +
-      "?base=" +
-      this.currency;
+      if (this.currency === "TRY" && this.date.substring(0,4) < 2005) {
+        let investment_url = 
+        "https://api.exchangeratesapi.io/" +
+        this.investment_date +
+        "?base=" +
+        "TRL";
+      }
+      else{
+          let investment_url = 
+          "https://api.exchangeratesapi.io/" +
+          this.investment_date +
+          "?base=" +
+          this.currency;
+      }
+
 
       // date format is 2010-01-12 // 2005-01-02 -- TRL --> TRY
       if (this.investment_date === "" || this.date === "") {
