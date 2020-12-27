@@ -150,21 +150,41 @@ export default {
   methods: {
     calc() {
       // date format is 2010-01-12
-      let investment_url =
+      if (isNaN(this.currency)) {
+        let investment_url = 
+          "https://api.exchangeratesapi.io/" +
+          this.investment_date +
+          "?base=" +
+          "TRL";
+
+        axios.get(investment_url).then((response) => {
+        this.investment_result = response.data;
+        this.calcNow();
+       });
+      }
+      else{
+        let investment_url =
         "https://api.exchangeratesapi.io/" +
         this.investment_date +
         "?base=" +
         this.currency;
+
+        axios.get(investment_url).then((response) => {
+        this.investment_result = response.data;
+        this.calcNow();
+      });
+      }
+
 
       if (this.investment_date === "" || this.date === "") {
         alert("Put the dates on !!");
         return 0;
       }
 
-      axios.get(investment_url).then((response) => {
-        this.investment_result = response.data;
-        this.calcNow();
-      });
+      // axios.get(investment_url).then((response) => {
+      //   this.investment_result = response.data;
+      //   this.calcNow();
+      // });
     },
 
     calcNow() {
@@ -184,7 +204,9 @@ export default {
       if (isNaN(this.investment_result.rates[this.second_currency])) {
         this.investment_target_currency_value =
           this.investment_result.rates["TRL"] * this.money;
-      } else {
+      }
+
+      else {
         this.investment_target_currency_value =
           this.investment_result.rates[this.second_currency] * this.money;
       }
