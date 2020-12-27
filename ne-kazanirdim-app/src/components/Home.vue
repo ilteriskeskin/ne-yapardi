@@ -149,43 +149,26 @@ export default {
 
   methods: {
     calc() {
-      // date format is 2010-01-12
-      if (isNaN(this.currency)) {
-        let investment_url = 
-          "https://api.exchangeratesapi.io/" +
-          this.investment_date +
-          "?base=" +
-          "TRL";
+      let investment_url = 
+      "https://api.exchangeratesapi.io/" +
+      this.investment_date +
+      "?base=" +
+      this.currency;
 
-        axios.get(investment_url).then((response) => {
-        this.investment_result = response.data;
-        this.calcNow();
-       });
-      }
-      else{
-        let investment_url =
-        "https://api.exchangeratesapi.io/" +
-        this.investment_date +
-        "?base=" +
-        this.currency;
-
-        axios.get(investment_url).then((response) => {
-        this.investment_result = response.data;
-        this.calcNow();
-      });
-      }
-
-
+      // date format is 2010-01-12 // 2005-01-02 -- TRL --> TRY
       if (this.investment_date === "" || this.date === "") {
-        alert("Put the dates on !!");
-        return 0;
+        this.investment_date = "2002-01-01"
+        this.date = "2005-01-01"
+        // alert("Put the dates on !!");
+        // return 0;
       }
 
-      // axios.get(investment_url).then((response) => {
-      //   this.investment_result = response.data;
-      //   this.calcNow();
-      // });
-    },
+            axios.get(investment_url).then((response) => {
+              this.investment_result = response.data;
+              this.calcNow();
+            });                  
+      
+  },
 
     calcNow() {
       let url =
@@ -194,24 +177,36 @@ export default {
         "?base=" +
         this.currency;
 
-      axios.get(url).then((response) => {
-        this.now_result = response.data;
-        this.mainCalc();
-      });
+        axios.get(url).then((response) => {
+          this.now_result = response.data;
+          this.mainCalc();
+        });      
     },
 
     mainCalc() {
-      if (isNaN(this.investment_result.rates[this.second_currency])) {
+      if (isNaN(this.investment_result.rates[this.second_currency] )) {
+
         this.investment_target_currency_value =
           this.investment_result.rates["TRL"] * this.money;
+
+        if (isNaN(this.now_result.rates[this.second_currency])) {
+          this.now_target_currency_value =
+            this.now_result.rates["TRL"] * this.money;
+        }
+        else if (this.now_result.rates[this.second_currency]){
+          this.now_target_currency_value = 
+          this.now_result.rates[this.second_currency] * this.money;
+        }
       }
 
       else {
         this.investment_target_currency_value =
-          this.investment_result.rates[this.second_currency] * this.money;
-      }
-      this.now_target_currency_value =
+        this.investment_result.rates[this.second_currency] * this.money;
+
+        this.now_target_currency_value =
         this.now_result.rates[this.second_currency] * this.money;
+      }
+
     },
   },
 };
