@@ -17,9 +17,9 @@
           >
             Yatırım Tarihi
           </label>
-          <div class="col-8">
+          <div class="col-12">
             <input
-              class="form-control calculate-input"
+              class="col-10 form-control calculate-input"
               type="date"
               value="2011-08-19"
               id="example-date-input"
@@ -37,9 +37,9 @@
           >
             Hedef Tarih
           </label>
-          <div class="col-8">
+          <div class="col-12">
             <input
-              class="form-control calculate-input"
+              class="col-10 form-control calculate-input"
               type="date"
               value="2011-08-19"
               id="example-date-input"
@@ -57,14 +57,15 @@
           >
             Yatırım Miktarı ve Birimi
           </label>
-          <div class="col-8">
+          <div class="col-12">
             <input
+            style="width:60%"
               type="number"
               placeholder="Number"
               v-model="money"
               class="col-10 calculate-input"
             />
-            <select v-model="currency" class="calculate-input col-2">
+            <select v-model="currency" class="calculate-input col-2" style="width:20%">
               <option value="default" disabled selected>Birim</option>
               <option v-for="(curr, index) in currencies" :key="index">
                 {{ index }}
@@ -82,7 +83,7 @@
           >
             Hedef Yatırım Birim
           </label>
-          <div class="col-8">
+          <div class="col-12">
             <select v-model="second_currency" class="col-12 calculate-input">
               <option value="default" disabled selected>Birim</option>
               <option v-for="(curr, index) in currencies" :key="index">
@@ -298,7 +299,10 @@ fixShadow          : 0px 0px 1px 1px rgba(0,0,0,0.10);
 
 .main-calculate {
   width: 50%;
-  height: auto;
+  height: 100vh;
+  overflow-y: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .main-calculate-title {
@@ -340,6 +344,7 @@ fixShadow          : 0px 0px 1px 1px rgba(0,0,0,0.10);
   border-radius: 4px;
   color: #999;
   outline: none;
+  width: 80%;
 }
 
 .calculate-button {
@@ -352,7 +357,8 @@ fixShadow          : 0px 0px 1px 1px rgba(0,0,0,0.10);
 }
 
 .calculate-result-block {
-  width: 65%;
+  width: calc(80% - 22px);
+  overflow-y: auto;
   height: auto;
   display: flex;
   flex-wrap: nowrap;
@@ -382,11 +388,15 @@ fixShadow          : 0px 0px 1px 1px rgba(0,0,0,0.10);
     display: none;
   }
   .main-calculate {
+    padding-top: 50px;
     width: 100%;
     height: 100%;
   }
   .calculate-result {
     width: 100%;
+  }
+  .section {
+    padding-left: 20px;
   }
 }
 </style>
