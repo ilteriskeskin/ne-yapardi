@@ -73,6 +73,7 @@
             />
             <select v-model="currency" class="calculate-input col-2" style="width:20%">
               <option value="default" disabled selected>Birim</option>
+              <option value="EUR">EUR</option>
               <option v-for="(curr, index) in currencies" :key="index">
                 {{ index }}
               </option>
@@ -92,6 +93,7 @@
           <div class="col-12">
             <select v-model="second_currency" class="col-12 calculate-input">
               <option value="default" disabled selected>Birim</option>
+              <option value="EUR">EUR</option>
               <option v-for="(curr, index) in currencies" :key="index">
                 {{ index }}
               </option>
